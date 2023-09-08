@@ -1,7 +1,7 @@
-package ru.nfm.pronounceitalarm.data.entity
+package ru.nfm.pronounceitalarm.data
 
 import androidx.room.TypeConverter
-import ru.nfm.pronounceitalarm.domain.DayOfWeek
+import ru.nfm.pronounceitalarm.domain.entity.DayOfWeek
 
 class DayOfWeekConverter {
     @TypeConverter

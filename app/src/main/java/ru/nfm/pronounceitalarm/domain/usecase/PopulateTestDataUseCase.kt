@@ -1,6 +1,6 @@
 package ru.nfm.pronounceitalarm.domain.usecase
 
-import ru.nfm.pronounceitalarm.domain.AlarmRepository
+import ru.nfm.pronounceitalarm.domain.repository.AlarmRepository
 import javax.inject.Inject
 
 //TODO: ONLY FOR TESTING DELETE FOR PROD

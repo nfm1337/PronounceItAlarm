@@ -11,7 +11,7 @@ import ru.nfm.pronounceitalarm.data.AlarmRepositoryImpl
 import ru.nfm.pronounceitalarm.data.Database
 import ru.nfm.pronounceitalarm.data.dao.AlarmDao
 import ru.nfm.pronounceitalarm.data.mapper.AlarmMapper
-import ru.nfm.pronounceitalarm.domain.AlarmRepository
+import ru.nfm.pronounceitalarm.domain.repository.AlarmRepository
 import javax.inject.Singleton
 
 @Module
@@ -25,7 +25,9 @@ class DataModule {
             context,
             Database::class.java,
             "pronounce_it.db"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()   // TODO: REMOVE LATER
+            .build()
     }
 
     @Provides

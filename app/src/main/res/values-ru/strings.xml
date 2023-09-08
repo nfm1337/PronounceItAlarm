@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PronounceIt Будильник</string>
+    <string name="alarm_title">Будильник</string>
+    <string name="edit_alarm_title">Edit alarm</string>
+    <string name="create_alarm_title">Create alarm</string>
+    <string-array name="short_weekdays">
+        <item>Пнд</item>
+        <item>Втр</item>
+        <item>Срд</item>
+        <item>Чтв</item>
+        <item>Птн</item>
+        <item>Сбт</item>
+        <item>Вск</item>
+    </string-array>
+    <string-array name="long_weekdays">
+        <item>Понедельник</item>
+        <item>Вторник</item>
+        <item>Среда</item>
+        <item>Четверг</item>
+        <item>Пятница</item>
+        <item>Суббота</item>
+        <item>Воскресенье</item>
+    </string-array>
+</resources>

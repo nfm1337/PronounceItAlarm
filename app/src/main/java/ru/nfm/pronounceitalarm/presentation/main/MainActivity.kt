@@ -14,6 +14,7 @@ import ru.nfm.pronounceitalarm.ui.theme.PronounceItAlarmTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             PronounceItAlarmTheme {
                 Surface(

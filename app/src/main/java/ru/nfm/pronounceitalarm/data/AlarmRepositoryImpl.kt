@@ -1,13 +1,19 @@
 package ru.nfm.pronounceitalarm.data
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import ru.nfm.pronounceitalarm.data.dao.AlarmDao
 import ru.nfm.pronounceitalarm.data.entity.AlarmDbModel
 import ru.nfm.pronounceitalarm.data.mapper.AlarmMapper
-import ru.nfm.pronounceitalarm.domain.Alarm
-import ru.nfm.pronounceitalarm.domain.AlarmRepository
-import ru.nfm.pronounceitalarm.domain.DayOfWeek
+import ru.nfm.pronounceitalarm.domain.entity.Alarm
+import ru.nfm.pronounceitalarm.domain.entity.DayOfWeek
+import ru.nfm.pronounceitalarm.domain.repository.AlarmRepository
 import javax.inject.Inject
 
 class AlarmRepositoryImpl @Inject constructor(
@@ -15,10 +21,14 @@ class AlarmRepositoryImpl @Inject constructor(
     private val mapper: AlarmMapper
 ) : AlarmRepository {
 
-    override fun getAllAlarms(): Flow<List<Alarm>> {
-        return alarmDao.getAllAlarms()
+    private val coroutineScope = CoroutineScope(Dispatchers.Default)
+
+    override fun getAllAlarms(): Flow<List<Alarm>> = flow {
+        alarmDao.getAllAlarms()
             .map { alarmDbEntityList ->
-                mapper.mapListDbModelToListEntity(alarmDbEntityList)
+                val list = mapper.mapListDbModelToListEntity(alarmDbEntityList)
+                list.sortedWith(compareBy({ it.time }, { it.name }))
+                emit(mapper.mapListDbModelToListEntity(alarmDbEntityList))
             }
     }
 
@@ -37,20 +47,26 @@ class AlarmRepositoryImpl @Inject constructor(
         alarmDao.delete(alarmDbEntity)
     }
 
-    override fun getAlarmById(alarmId: Int): Flow<Alarm?> {
-        return alarmDao.getAlarmById(alarmId)
+    override fun getAlarmById(alarmId: Int): StateFlow<Alarm?> = flow {
+        alarmDao.getAlarmById(alarmId)
             .map { alarmDbEntity ->
-                alarmDbEntity?.let { mapper.mapDbModelToEntity(it) }
+                alarmDbEntity?.let { emit(mapper.mapDbModelToEntity(it)) }
             }
-    }
+    }.stateIn(
+        scope = coroutineScope,
+        started = SharingStarted.Lazily,
+        initialValue = Alarm()
+    )
+
 
     //TODO: ONLY FOR TESTING DELETE FOR PROD
     override suspend fun populateTestData() {
         alarmDao.clearAllAlarms()
+        val oneHour = 1000 * 60 * 60
 
         val alarm1 = AlarmDbModel(
             name = "Alarm1",
-            timeInMills = System.currentTimeMillis() + 1000 * 60 * 60,
+            timeInMills = System.currentTimeMillis() + oneHour,
             activeDays = listOf(DayOfWeek.Monday, DayOfWeek.Friday),
             isEnabled = true
         )
@@ -71,7 +87,7 @@ class AlarmRepositoryImpl @Inject constructor(
 
         val alarm4 = AlarmDbModel(
             name = "Alarm4",
-            timeInMills = System.currentTimeMillis(),
+            timeInMills = System.currentTimeMillis() - oneHour,
             activeDays = DayOfWeek.values().toList(),
             isEnabled = true
         )

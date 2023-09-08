@@ -24,7 +24,7 @@ fun AppTopBar(
                         contentDescription = null
                     )
                 },
-                onClick = {}
+                onClick = {  }
             )
         }
     )

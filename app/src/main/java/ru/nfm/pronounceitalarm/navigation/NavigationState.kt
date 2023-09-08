@@ -5,7 +5,6 @@ import androidx.compose.runtime.remember
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import ru.nfm.pronounceitalarm.domain.Alarm
 
 class NavigationState(
     val navHostController: NavHostController
@@ -21,8 +20,8 @@ class NavigationState(
         }
     }
 
-    fun navigateToAlarm(alarm: Alarm) {
-        navHostController.navigate(Screen.AlarmItem.getRouteWithArgs(alarm))
+    fun navigateToAlarm(alarmId: Int) {
+        navHostController.navigate(Screen.AlarmItem.getRouteWithArgs(alarmId))
     }
 }
 

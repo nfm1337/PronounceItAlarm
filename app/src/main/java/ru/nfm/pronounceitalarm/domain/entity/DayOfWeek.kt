@@ -1,4 +1,4 @@
-package ru.nfm.pronounceitalarm.domain
+package ru.nfm.pronounceitalarm.domain.entity
 
 
 enum class DayOfWeek {

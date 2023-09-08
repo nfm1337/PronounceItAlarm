@@ -2,8 +2,8 @@ package ru.nfm.pronounceitalarm.data.mapper
 
 import android.icu.text.SimpleDateFormat
 import ru.nfm.pronounceitalarm.data.entity.AlarmDbModel
-import ru.nfm.pronounceitalarm.domain.Alarm
-import ru.nfm.pronounceitalarm.domain.DayOfWeek
+import ru.nfm.pronounceitalarm.domain.entity.Alarm
+import ru.nfm.pronounceitalarm.domain.entity.DayOfWeek
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale

@@ -1,8 +1,8 @@
 package ru.nfm.pronounceitalarm.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
-import ru.nfm.pronounceitalarm.domain.Alarm
-import ru.nfm.pronounceitalarm.domain.AlarmRepository
+import ru.nfm.pronounceitalarm.domain.entity.Alarm
+import ru.nfm.pronounceitalarm.domain.repository.AlarmRepository
 import javax.inject.Inject
 
 class GetAlarmsUseCase @Inject constructor(

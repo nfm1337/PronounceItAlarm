@@ -14,6 +14,9 @@ interface AlarmDao {
     @Query("SELECT * FROM alarm ORDER BY timeInMills")
     fun getAllAlarms(): Flow<List<AlarmDbModel>>
 
+    @Query("SELECT * FROM alarm WHERE id = :alarmId")
+    fun getAlarmById(alarmId: Int): Flow<AlarmDbModel?>
+
     @Insert
     suspend fun insert(alarm: AlarmDbModel)
 
@@ -22,9 +25,6 @@ interface AlarmDao {
 
     @Delete
     suspend fun delete(alarm: AlarmDbModel)
-
-    @Query("SELECT * FROM alarm WHERE id = :alarmId")
-    fun getAlarmById(alarmId: Int): Flow<AlarmDbModel?>
 
     @Query("DELETE FROM alarm")
     suspend fun clearAllAlarms()
