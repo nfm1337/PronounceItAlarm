@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class GetAlarmsUseCase @Inject constructor(
     private val repository: AlarmRepository
-){
+) {
 
     operator fun invoke(): Flow<List<Alarm>> {
         return repository.getAllAlarms()

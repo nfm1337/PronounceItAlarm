@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class GetAlarmByIdUseCase @Inject constructor(
     private val repository: AlarmRepository
-){
+) {
 
     operator fun invoke(alarmId: Int): Flow<Alarm?> {
         return repository.getAlarmById(alarmId)
