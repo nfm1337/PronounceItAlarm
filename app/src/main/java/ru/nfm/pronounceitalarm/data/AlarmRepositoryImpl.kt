@@ -23,14 +23,14 @@ class AlarmRepositoryImpl @Inject constructor(
 
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
 
-    override fun getAllAlarms(): Flow<List<Alarm>> = flow {
+    override fun getAllAlarms(): Flow<List<Alarm>> =
         alarmDao.getAllAlarms()
             .map { alarmDbEntityList ->
                 val list = mapper.mapListDbModelToListEntity(alarmDbEntityList)
-                list.sortedWith(compareBy({ it.time }, { it.name }))
-                emit(mapper.mapListDbModelToListEntity(alarmDbEntityList))
+                    .sortedWith(compareBy({ it.time }, { it.name }))
+                list
             }
-    }
+
 
     override suspend fun insert(alarm: Alarm) {
         val alarmDbEntity = mapper.mapEntityToDbModel(alarm)

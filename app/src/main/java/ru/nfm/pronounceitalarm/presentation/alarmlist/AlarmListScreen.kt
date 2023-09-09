@@ -59,10 +59,11 @@ fun AlarmListScreen(
     navHostController: NavHostController,
     viewModel: AlarmListViewModel
 ) {
-    val mainScreenState = viewModel.screenState.collectAsState()
+
+    val screenState = viewModel.screenState.collectAsState()
 
     AlarmListContent(
-        screenState = mainScreenState,
+        screenState = screenState,
         viewModel = viewModel,
         onAlarmCardClickListener = {
             navHostController.navigate(Screen.AlarmItem.getRouteWithArgs(it))
